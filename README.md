@@ -22,7 +22,7 @@ docker-compose up
 
 You will need VS Code with Python extension installed. (https://code.visualstudio.com/download)
 
-It is recommended to have Python 3.8.5 installed on your system for creating the venv as the Rasa docker image currently uses Python 3.8.5 and you may get strange debugging errors when  debuggers will
+It is recommended to have Python 3.8.5 installed on your system for creating the venv as the Rasa docker image currently uses Python 3.8.5 and you may get strange debugging errors with a different version of Python.
 
 1.  #### Install poetry (Python dependency management tool, installed globally)
     ```bash
@@ -35,9 +35,9 @@ It is recommended to have Python 3.8.5 installed on your system for creating the
     cd rasa
     git checkout telegram
     ```
-    Make sure you sync rasa repository as a sibling folder to mockabot-rasa repository.
+    Make sure you sync rasa repository as a sibling folder to rasa-bot-template repository.
 
-1.  #### Create a virtual env and activate it
+1.  #### Create a virtual env and activate it (inside rasa folder)
     ```bash
     /path/to/python3.8.5 -m venv ./.venv
     source .venv/bin/activate
@@ -45,7 +45,6 @@ It is recommended to have Python 3.8.5 installed on your system for creating the
 
 1.  #### Build and install Rasa
     ```bash
-    cd rasa
     make install
     ```
 
