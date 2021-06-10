@@ -19,7 +19,7 @@ class ActionSessionStart(Action):
             if (value is not None) and (key is not "session_started_metadata"):
                 slots.append(SlotSet(key=key, value=value))
         return slots
-        
+
         """for event in tracker.events:
             if event.event == "slot":
                 if event.value is not None:
@@ -29,7 +29,7 @@ class ActionSessionStart(Action):
                 slots = {}
                 if session_started_metadata_slot is not None:
                     slots["session_started_metadata"] = session_started_metadata_slot
-            
+
         return list(slots.values())"""
 
     @staticmethod
@@ -39,7 +39,7 @@ class ActionSessionStart(Action):
         metadata = tracker.get_slot("session_started_metadata")
 
         slots = []
-        
+
         chat_type = get_chat_type(metadata)
         if chat_type is not None:
             slots.append(SlotSet(key="chat_type", value=chat_type))
