@@ -5,6 +5,13 @@ nlu:
 - intent: help
   metadata:
     keyword_intent: true
-    match_condition: "start"
+    match_condition: "exact"
   examples: |
     - /help
+
+- intent: helpg
+  metadata:
+    keyword_intent: true
+    match_condition: "exact"
+  examples: |
+    - /helpg
