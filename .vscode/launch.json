@@ -41,8 +41,8 @@
       "type": "python",
       "request": "launch",
       "cwd": "${workspaceFolder}/dataset",
-      "python": "${workspaceFolder:rasa}/../.venv/bin/python",
-      "program": "${workspaceFolder:rasa}/../.venv/bin/rasa",
+      "python": "${workspaceFolder}/../rasa/.venv/bin/python",
+      "program": "${workspaceFolder}/../rasa/.venv/bin/rasa",
       "args": [
         "train",
         "-vv"
@@ -55,8 +55,8 @@
       "type": "python",
       "request": "launch",
       "cwd": "${workspaceFolder}/dataset",
-      "python": "${workspaceFolder:rasa}/../.venv/bin/python",
-      "program": "${workspaceFolder:rasa}/../.venv/bin/rasa",
+      "python": "${workspaceFolder}/../rasa/.venv/bin/python",
+      "program": "${workspaceFolder}/../rasa/.venv/bin/rasa",
       "args": [
         "run",
         "-vv"
@@ -69,8 +69,8 @@
       "type": "python",
       "request": "launch",
       "cwd": "${workspaceFolder}/dataset",
-      "python": "${workspaceFolder:rasa}/../.venv/bin/python",
-      "program": "${workspaceFolder:rasa}/../.venv/bin/rasa",
+      "python": "${workspaceFolder}/../rasa/.venv/bin/python",
+      "program": "${workspaceFolder}/../rasa/.venv/bin/rasa",
       "args": [
         "run",
         "actions",
