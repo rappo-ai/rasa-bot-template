@@ -16,7 +16,7 @@ class ActionSessionStart(Action):
         slots = []
         for key in tracker.slots.keys():
             value = tracker.get_slot(key)
-            if (value is not None) and (key is not "session_started_metadata"):
+            if (value is not None) and (key != "session_started_metadata"):
                 slots.append(SlotSet(key=key, value=value))
         return slots
 
