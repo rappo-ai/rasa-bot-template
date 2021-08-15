@@ -1,9 +1,13 @@
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.events import SlotSet, SessionStarted, ActionExecuted, EventType
+from rasa_sdk.executor import CollectingDispatcher
 
+from actions.utils.admin_config import get_admin_group_id
 from actions.utils.json import get_json_key
-from actions.utils.telegram import get_chat_type
+from actions.utils.markdown import escape_markdown, get_user_link
+from actions.utils.telegram import get_chat_type, get_first_name, get_user_id
+
 
 class ActionSessionStart(Action):
     def name(self) -> Text:
@@ -20,18 +24,6 @@ class ActionSessionStart(Action):
                 slots.append(SlotSet(key=key, value=value))
         return slots
 
-        """for event in tracker.events:
-            if event.event == "slot":
-                if event.value is not None:
-                    slots[event.name] = SlotSet(key=event.name, value=event.value, timestamp=event.timestamp)
-            elif event.event == "restart":
-                session_started_metadata_slot = slots["session_started_metadata"]
-                slots = {}
-                if session_started_metadata_slot is not None:
-                    slots["session_started_metadata"] = session_started_metadata_slot
-
-        return list(slots.values())"""
-
     @staticmethod
     def fetch_telegram_slots(tracker: Tracker) -> List[EventType]:
         """Add Telegram-specific slots"""
@@ -44,12 +36,22 @@ class ActionSessionStart(Action):
         if chat_type is not None:
             slots.append(SlotSet(key="chat_type", value=chat_type))
 
+        first_name = get_first_name(metadata)
+        if first_name is not None:
+            slots.append(SlotSet(key="first_name", value=first_name))
+
+        telegram_user_id = get_user_id(metadata)
+        if telegram_user_id is not None:
+            slots.append(SlotSet(key="telegram_user_id", value=str(telegram_user_id)))
+
         return slots
 
     async def run(
-      self, dispatcher, tracker: Tracker, domain: Dict[Text, Any]
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-
         # the session should begin with a `session_started` event
         events = [SessionStarted()]
 
@@ -59,7 +61,8 @@ class ActionSessionStart(Action):
             events.extend(self.fetch_previous_slots(tracker))
 
         # add slots specific to Telegram platform
-        events.extend(self.fetch_telegram_slots(tracker))
+        if tracker.get_latest_input_channel() == "telegram":
+            events.extend(self.fetch_telegram_slots(tracker))
 
         # an `action_listen` should be added at the end as a user message follows
         events.append(ActionExecuted("action_listen"))
