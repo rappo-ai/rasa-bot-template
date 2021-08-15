@@ -3,7 +3,6 @@ from copy import deepcopy
 from dotenv import load_dotenv
 import json
 import logging
-import os
 from sanic import Blueprint, response
 from sanic.request import Request
 from sanic.response import HTTPResponse
@@ -19,7 +18,6 @@ from telebot.types import (
     Update,
 )
 from typing import Dict, Text, Any, List, Optional, Callable, Awaitable
-from urllib.parse import urlunparse
 
 from rasa.core.channels.channel import InputChannel, UserMessage, OutputChannel
 from rasa.shared.constants import INTENT_MESSAGE_PREFIX
@@ -28,8 +26,6 @@ from rasa.shared.core.constants import USER_INTENT_RESTART
 logger = logging.getLogger(__name__)
 
 load_dotenv()
-
-from actions.utils.json import get_json_key
 
 
 def get_query_param(params, key):
